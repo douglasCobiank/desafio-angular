@@ -6,7 +6,7 @@ import { TituloDto } from '../models/titulo.model';
 
 @Injectable({ providedIn: 'root' })
 export class TituloService {
-  private base = `${environment.apiUrl}/api/Desafio`;
+  private base = `${environment.apiUrl}/api/divida`;
 
   constructor(private http: HttpClient) {}
 
