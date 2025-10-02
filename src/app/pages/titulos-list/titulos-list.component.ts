@@ -18,7 +18,7 @@ import { TituloDto } from '../../models/titulo.model';
 })
 export class TitulosListComponent implements OnInit {
   titulos: TituloDto[] = [];
-  displayedColumns = ['numero', 'nomeDevedor', 'qtdParcelas', 'valorOriginal', 'diasAtraso', 'valorAtualizado', 'actions'];
+  displayedColumns = ['numero', 'nomeDevedor', 'qtdParcelas', 'valorOriginal', 'diasAtraso', 'valorAtualizado'];
 
   constructor(private tituloService: TituloService) {}
 

@@ -45,11 +45,11 @@ export class TituloFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      numero: ['', Validators.required],
+      numeroTitulo: ['', Validators.required],
       nomeDevedor: ['', Validators.required],
-      cpfDevedor: ['', [Validators.required, Validators.pattern(/^\d{11}$/)]],
-      percentualMulta: [2, [Validators.required, Validators.min(0)]],
-      percentualJurosMes: [1, [Validators.required, Validators.min(0)]],
+      cpf: ['', [Validators.required, Validators.pattern(/^\d{11}$/)]],
+      porcentagemMulta: [2, [Validators.required, Validators.min(0)]],
+      porcentagemJuros: [1, [Validators.required, Validators.min(0)]],
       parcelas: this.fb.array([])
     });
 
@@ -117,11 +117,15 @@ export class TituloFormComponent implements OnInit {
       }))
     };
 
-    console.log(payload);
-
     this.tituloService.postDivida(payload).subscribe({
-      next: () => this.router.navigateByUrl('/'),
-      error: (err) => console.error(err)
+      next: () => {
+        this.router.navigateByUrl('/');
+        alert('Dívida cadastrada com sucesso!');
+      },
+      error: (err) => {
+        console.error(err);
+        alert('Erro ao cadastrar dívida. Tente novamente.');
+      }
     });
   }
 }

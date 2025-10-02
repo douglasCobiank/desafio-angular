@@ -9,10 +9,8 @@ import { MatButtonModule } from '@angular/material/button';
   imports: [RouterOutlet, MatToolbarModule, MatButtonModule],
   template: `
     <mat-toolbar color="primary">
-      <span>Desafio - Presas de Marfim</span>
+      <span>Desafio - Praschoalotto</span>
       <span class="spacer"></span>
-      <button mat-button routerLink="/">Início</button>
-      <button mat-button routerLink="/create">Novo</button>
     </mat-toolbar>
     <router-outlet></router-outlet>
   `,

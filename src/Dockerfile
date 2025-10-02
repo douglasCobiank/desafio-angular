@@ -1,4 +1,3 @@
-# Dockerfile para o front-end (Angular/React)
 FROM node:20 AS build
 WORKDIR /app
 COPY ./front/ ./
