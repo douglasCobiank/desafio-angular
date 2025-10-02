@@ -1,0 +1,92 @@
+<mat-toolbar color="primary">
+  <span>{{ editingId ? 'Editar Título' : 'Novo Título' }}</span>
+  <span class="spacer"></span>
+  <button mat-button routerLink="/">Voltar</button>
+</mat-toolbar>
+
+<mat-card class="container">
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <div class="row">
+      <mat-form-field appearance="fill">
+        <mat-label>Número</mat-label>
+        <input matInput formControlName="numeroTitulo">
+        <mat-error *ngIf="form.get('numeroTitulo')?.hasError('required')">Obrigatório</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Nome do Devedor</mat-label>
+        <input matInput formControlName="nomeDevedor">
+        <mat-error *ngIf="form.get('nomeDevedor')?.hasError('required')">Obrigatório</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="row">
+      <mat-form-field appearance="fill">
+        <mat-label>CPF (somente números)</mat-label>
+        <input matInput formControlName="cpf" maxlength="11">
+        <mat-error *ngIf="form.get('cpf')?.hasError('required')">Obrigatório</mat-error>
+        <mat-error *ngIf="form.get('cpf')?.hasError('pattern')">Digite 11 dígitos</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>% Multa</mat-label>
+        <input matInput type="number" formControlName="porcentagemMulta">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>% Juros ao mês</mat-label>
+        <input matInput type="number" formControlName="porcentagemJuros">
+      </mat-form-field>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <div formArrayName="parcelas" class="parcelas">
+      <div *ngFor="let p of parcelas.controls; let i = index" [formGroupName]="i" class="parcela-row">
+        <mat-card>
+          <div class="parcela-grid">
+            <mat-form-field>
+              <mat-label>Nº Parcela</mat-label>
+              <input matInput formControlName="numeroParcela" type="number">
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Vencimento</mat-label>
+                <input matInput [matDatepicker]="picker" formControlName="dataVencimento">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-label>Valor</mat-label>
+              <input matInput type="number" formControlName="valorParcela" step="0.01">
+            </mat-form-field>
+
+            <div class="actions">
+              <button mat-mini-button color="warn" (click)="removeParcela(i)" type="button" [disabled]="parcelas.length<=1">Remover</button>
+            </div>
+          </div>
+        </mat-card>
+      </div>
+    </div>
+
+    <div class="mt-2">
+      <button mat-stroked-button type="button" (click)="addParcela()">Adicionar Parcela</button>
+    </div>
+
+    <div class="actions-bottom">
+      <button mat-raised-button color="primary" type="submit">{{ editingId ? 'Salvar' : 'Criar' }}</button>
+    </div>
+  </form>
+</mat-card>
+
+<style>
+  .spacer { flex: 1 1 auto; }
+  .container { margin: 16px; padding: 16px; }
+  .row { display:flex; gap: 16px; margin-bottom: 12px; }
+  .parcela-row { margin-bottom: 12px; }
+  .parcela-grid { display:flex; gap:12px; align-items: center; }
+  .actions { display:flex; align-items:center; }
+  .actions-bottom { margin-top: 16px; }
+  mat-card { padding:12px; }
+</style>
